@@ -1,26 +1,28 @@
 package interpreter.test;
 
 import org.interpreter.Evaluator;
-import org.interpreter.ExpressionTree;
+import org.interpreter.Token;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import java.util.function.BinaryOperator;
 import java.util.function.UnaryOperator;
 
-import static java.util.Arrays.asList;
 import static org.interpreter.ExpressionTree.*;
-import static org.interpreter.ExpressionTree.Expression;
-import static org.interpreter.ExpressionTree.Add;
-import static org.interpreter.ExpressionTree.Const;
 
 public class FoldingTestTree {
 
     private Evaluator evaluator;
 
+    /*
+    @aww org.junit.jupiter.params.provider.MethodSource
+     */
     @Test
+    @MethodSource
     void binaryConstFold() {
         List<BinaryOperator<Expression>> patterns =
                 Arrays.asList((Expression left, Expression right) ->
@@ -32,6 +34,9 @@ public class FoldingTestTree {
         });
     }
 
+    /*
+    @aww org.junit.jupiter.params.provider.MethodSource
+     */
     @Test
     void constFold() {
         List<UnaryOperator<Object>> patterns =
