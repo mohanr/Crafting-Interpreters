@@ -1,11 +1,16 @@
 package interpreter.test;
 
-import org.interpreter.ExpressionTree;
+import static org.interpreter.ExpressionTree.*;
+
+import org.interpreter.Evaluator;
+import org.interpreter.Token;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.BinaryOperator;
+import java.util.Map;
+import java.util.function.UnaryOperator;
 
 public class ASTPrinterTest {
 
@@ -13,18 +18,22 @@ public class ASTPrinterTest {
     @aww org.junit.jupiter.params.provider.MethodSource
     */
     @Test
-    public void groupingTest() {
-        List<BinaryOperator<ExpressionTree.Expression>> patterns =
-                Arrays.asList((ExpressionTree.Expression left, ExpressionTree.Expression right) ->
-                        new ExpressionTree.Add(left, right));
+    public void literalTest() {
+        StringBuilder builder = new StringBuilder();
+        List<UnaryOperator<Object>> patterns =
+                Arrays.asList(val ->
+                        new Literal(Token.PLUS, val.toString()));
         patterns.forEach(p -> {
-            final ExpressionTree.Expression expr = p.apply(new ExpressionTree.Const(1),
-                    new ExpressionTree.Const(2));
+            final Expression expr = (Expression) p.apply("1 2 3");
             String message = switch (expr) {
-                case ExpressionTree.Add(ExpressionTree.Expression left,ExpressionTree.Expression right) -> "Test";
-                case ExpressionTree.Literal(String value) -> "Test";
-                case ExpressionTree.Const(int value) -> "Test";
+                case Add(Expression left,Expression right) -> "Test";
+                case Literal(Token token,String value) -> builder.append("(" +
+                                                            Token.PLUS.lexeme + " " +
+                                                             value + ")").toString();
+                case Const(int value) -> "Test";
             };
+            Assertions.assertEquals(message,"(+ 1 2 3)");
+
         });
     }
 
