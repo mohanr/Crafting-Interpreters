@@ -1,7 +1,6 @@
 package interpreter.test;
 
 import org.interpreter.Evaluator;
-import org.interpreter.Token;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.provider.MethodSource;

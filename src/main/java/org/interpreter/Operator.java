@@ -1,6 +1,6 @@
 package org.interpreter;
 
-public enum Token {
+public enum Operator {
 
     PLUS( "+", null,1);
 
@@ -8,7 +8,7 @@ public enum Token {
     public final String lexeme;
     private final int line;
 
-    Token(String lexeme, String literal, int line) {
+    Operator(String lexeme, String literal, int line) {
             this.lexeme = lexeme;
             this.literal = literal;
             this.line = line;

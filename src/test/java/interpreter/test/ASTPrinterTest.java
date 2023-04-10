@@ -2,14 +2,12 @@ package interpreter.test;
 
 import static org.interpreter.ExpressionTree.*;
 
-import org.interpreter.Evaluator;
-import org.interpreter.Token;
+import org.interpreter.Operator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.function.UnaryOperator;
 
 public class ASTPrinterTest {
@@ -22,23 +20,18 @@ public class ASTPrinterTest {
         StringBuilder builder = new StringBuilder();
         List<UnaryOperator<Object>> patterns =
                 Arrays.asList(val ->
-                        new Literal(Token.PLUS, val.toString()));
+                        new Literal(Operator.PLUS, val.toString()));
         patterns.forEach(p -> {
             final Expression expr = (Expression) p.apply("1 2 3");
             String message = switch (expr) {
                 case Add(Expression left,Expression right) -> "Test";
-                case Literal(Token token,String value) -> builder.append("(" +
-                                                            Token.PLUS.lexeme + " " +
+                case Literal(Operator token,String value) -> builder.append("(" +
+                                                            Operator.PLUS.lexeme + " " +
                                                              value + ")").toString();
                 case Const(int value) -> "Test";
             };
             Assertions.assertEquals(message,"(+ 1 2 3)");
 
         });
-    }
-
-    @Test
-    public void deriveTest(){
-
     }
 }
