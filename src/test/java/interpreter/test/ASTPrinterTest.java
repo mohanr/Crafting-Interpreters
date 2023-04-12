@@ -2,7 +2,7 @@ package interpreter.test;
 
 import static org.interpreter.ExpressionTree.*;
 
-import org.interpreter.Operator;
+import org.interpreter.Token;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -20,13 +20,13 @@ public class ASTPrinterTest {
         StringBuilder builder = new StringBuilder();
         List<UnaryOperator<Object>> patterns =
                 Arrays.asList(val ->
-                        new Literal(Operator.PLUS, val.toString()));
+                        new Literal(Token.PLUS, val.toString()));
         patterns.forEach(p -> {
             final Expression expr = (Expression) p.apply("1 2 3");
             String message = switch (expr) {
                 case Add(Expression left,Expression right) -> "Test";
-                case Literal(Operator token,String value) -> builder.append("(" +
-                                                            Operator.PLUS.lexeme + " " +
+                case Literal(Token token,String value) -> builder.append("(" +
+                                                            Token.PLUS.lexeme + " " +
                                                              value + ")").toString();
                 case Const(int value) -> "Test";
             };

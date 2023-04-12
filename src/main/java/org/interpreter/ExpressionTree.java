@@ -6,13 +6,13 @@ public class ExpressionTree{
     }
 
     public record Add(Expression left, Expression right) implements Expression {
-        static Operator t = Operator.PLUS;
+        static Token t = Token.PLUS;
     }
 
     public record Const(int value) implements  Expression {
     }
 
-    public record Literal(Operator operator, String value) implements  Expression {
+    public record Literal(Token operator, String value) implements  Expression {
     }
 }
 
