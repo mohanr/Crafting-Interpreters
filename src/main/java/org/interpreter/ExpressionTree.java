@@ -12,7 +12,7 @@ public class ExpressionTree{
     public record Const(int value) implements  Expression {
     }
 
-    public record Literal(Token operator, String value) implements  Expression {
+    public record Literal(String value) implements  Expression {
     }
 }
 
